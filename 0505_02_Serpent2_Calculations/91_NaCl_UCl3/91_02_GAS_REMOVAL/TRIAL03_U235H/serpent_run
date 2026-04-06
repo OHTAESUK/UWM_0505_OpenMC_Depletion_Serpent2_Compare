@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mpirun -machinefile TS0918 -np 10  sss2_21 INF_NaCl_UCl3 -omp 20 > log.out & 
+
