@@ -1,0 +1,205 @@
+% =================================================================================================
+% --- SURFACES
+% =================================================================================================
+surf S01 cuboid   0.0 1.0 0.0 1.0 0.0 1.0 
+
+cell fuel    0  NaCl_UCl3      -S01
+cell outside 0  outside         S01
+
+set bc 2 2 2
+
+% TRASH CAN
+cell T01 T TrashCan -S01
+
+% =================================================================================================
+% --- CONTROL
+% =================================================================================================
+set acelib "/home/codes/serpent_data/sss_endf71.xsdata"
+set declib "/home/codes/serpent_data/sss_endfb71.dec"
+set nfylib "/home/codes/serpent_data/sss_endfb71.nfy"
+set sfylib "/home/codes/serpent_data/sss_endfb71.sfy"
+
+set pop   100000   400  50
+
+% --- UNRESOLVED RESONANCE CONTROL (0: OFF / 1: ON)
+set ures 0
+
+% --- SPECTRUM TALLY
+ene spec    4 nj21
+
+det specTot n de spec dt -3
+
+% --- Reaction Rate (RR) TALLY
+det D_MICRO dm NaCl_UCl3
+
+  % --- Na
+  dr   1 Na23
+  dr 102 Na23  
+
+  % --- Cl
+  dr   1 Cl35
+  dr 102 Cl35
+
+  dr   1 Cl37
+  dr 102 Cl37
+
+  % --- U	
+  dr   1 U235
+  dr 102 U235
+  dr  18 U235
+  
+  dr   1 U238
+  dr 102 U238
+  dr  18 U238
+
+% --- DEPLETION
+set powdens 20E-3
+set bumode  2
+set pcc	    1
+set printm  1
+set fpcut   1E-15
+
+% --- SPECIAL COMMAND FOR DEPLETION TO USE REMOVAL
+dep pro period1 butot
+  5.0
+ 10.0
+ 20.0
+ 30.0
+ 40.0
+ 50.0
+ 60.0
+ 70.0
+ 80.0
+ 90.0
+100.0
+110.0
+120.0
+130.0
+140.0
+150.0
+160.0
+170.0
+180.0
+190.0
+200.0
+210.0
+220.0
+230.0
+240.0
+250.0
+
+% =================================================================================================
+% --- MATERIALS
+% =================================================================================================
+mat NaCl_UCl3 -3.3163 tmp  923.15 vol 1.0 burn 1
+11023.82c  25.18796992481203
+17035.82c   0.6240601503759399
+17037.82c  61.78195488721804
+92235.82c   2.4752786486966025
+92238.82c   9.930736388897381
+
+% --- FOR REMOVING NUCLIDES (SAME VOLUME AS FUEL SALT)
+mat TrashCan  1e-24 tmp 923.15  rgb 192 192 192 vol 1.0  burn 1
+2004.82c    1.0
+
+% --- MFLOW CARD: FOR REMOVING NUCLIDES
+mflow  rmgas     10010  0.02
+                 10020  0.02
+                 10030  0.02
+				 20030  0.02
+                 20040  0.02
+				 70140  0.02
+				 70150  0.02
+				 80160  0.02
+				 80170  0.02
+                180360  0.02
+                180380  0.02
+                180400  0.02
+				360780  0.02
+                360800  0.02
+                360820  0.02
+                360830  0.02
+                360840  0.02
+                360850  0.02
+                360860  0.02
+                541240  0.02
+                541260  0.02
+                541280  0.02
+                541290  0.02
+                541300  0.02
+                541310  0.02
+                541320  0.02
+                541330  0.02
+                541340  0.02
+                541350  0.02
+                541360  0.02
+				
+% --- NAME: period1 should correspond to [dep] section 
+%     NaCl_UCl3 FLOWS TO TrashCan with MFLOW of rmgas
+%     1: proportional to the current concentration
+%     0: Universe (based)
+%     T: TrashCan Universe
+rep period1 rc NaCl_UCl3 TrashCan rmgas 1 ru 0 T
+
+% --- MATERIAL FOR TALLYING REACTION RATE
+mat Na23  1.0 11023.82c 1.0
+mat Cl35  1.0 17035.82c 1.0
+mat Cl37  1.0 17037.82c 1.0
+mat Th227 1.0 90227.82c 1.0
+mat Th228 1.0 90228.82c 1.0
+mat Th229 1.0 90229.82c 1.0
+mat Th230 1.0 90230.82c 1.0
+mat Th231 1.0 90231.82c 1.0
+mat Th232 1.0 90232.82c 1.0
+mat Th233 1.0 90233.82c 1.0
+mat Th234 1.0 90234.82c 1.0
+mat Pa229 1.0 91229.82c 1.0
+mat Pa230 1.0 91230.82c 1.0
+mat Pa231 1.0 91231.82c 1.0
+mat Pa232 1.0 91232.82c 1.0
+mat Pa233 1.0 91233.82c 1.0
+mat  U230 1.0 92230.82c 1.0
+mat  U231 1.0 92231.82c 1.0
+mat  U232 1.0 92232.82c 1.0
+mat  U233 1.0 92233.82c 1.0
+mat  U234 1.0 92234.82c 1.0
+mat  U235 1.0 92235.82c 1.0
+mat  U236 1.0 92236.82c 1.0
+mat  U237 1.0 92237.82c 1.0
+mat  U238 1.0 92238.82c 1.0
+mat  U239 1.0 92239.82c 1.0
+mat  U240 1.0 92240.82c 1.0
+mat  U241 1.0 92241.82c 1.0
+mat Np234 1.0 93234.82c 1.0
+mat Np235 1.0 93235.82c 1.0
+mat Np236 1.0 93236.82c 1.0
+mat Np237 1.0 93237.82c 1.0
+mat Np238 1.0 93238.82c 1.0
+mat Np239 1.0 93239.82c 1.0
+mat Pu236 1.0 94236.82c 1.0
+mat Pu237 1.0 94237.82c 1.0
+mat Pu238 1.0 94238.82c 1.0
+mat Pu239 1.0 94239.82c 1.0
+mat Pu240 1.0 94240.82c 1.0
+mat Pu241 1.0 94241.82c 1.0
+mat Pu242 1.0 94242.82c 1.0
+mat Pu243 1.0 94243.82c 1.0
+mat Pu244 1.0 94244.82c 1.0
+mat Am240 1.0 95240.82c 1.0
+mat Am241 1.0 95241.82c 1.0
+mat Am242 1.0 95242.82c 1.0
+mat Am342 1.0 95342.82c 1.0
+mat Am243 1.0 95243.82c 1.0
+mat Am244 1.0 95244.82c 1.0
+mat Am344 1.0 95344.82c 1.0
+mat Cm240 1.0 96240.82c 1.0
+mat Cm241 1.0 96241.82c 1.0
+mat Cm242 1.0 96242.82c 1.0
+mat Cm243 1.0 96243.82c 1.0
+mat Cm244 1.0 96244.82c 1.0
+mat Cm245 1.0 96245.82c 1.0
+mat Cm246 1.0 96246.82c 1.0
+mat Cm247 1.0 96247.82c 1.0
+mat Cm248 1.0 96248.82c 1.0
+mat Cm249 1.0 96249.82c 1.0
+mat Cm250 1.0 96250.82c 1.0
