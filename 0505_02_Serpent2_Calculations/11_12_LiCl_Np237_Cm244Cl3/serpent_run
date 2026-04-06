@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# mpirun -machinefile TS0208 -np 7   sss2_21 INF_LiCl_Np237_Cm244Cl3 -omp 16 > log.out & 
+mpirun -machinefile TS0918 -np 10  sss2_21 INF_LiCl_Np237_Cm244Cl3 -omp 20 > log.out & 
