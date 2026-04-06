@@ -1,0 +1,4 @@
+#!/bin/bash
+
+mpirun -machinefile TS0208 -np 7  sss2_21 INF_LiCl_AnCl3 -omp 16 > log.out & 
+
