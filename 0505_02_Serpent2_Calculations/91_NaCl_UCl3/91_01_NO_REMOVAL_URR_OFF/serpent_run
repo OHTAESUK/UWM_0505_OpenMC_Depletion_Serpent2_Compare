@@ -1,0 +1,2 @@
+#!/bin/bash
+mpirun -machinefile node_ALL -np 13 sss2_21 INF_NaCl_UCl3 -omp 12 > log.out &
