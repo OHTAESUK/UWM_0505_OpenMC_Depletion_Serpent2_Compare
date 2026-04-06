@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='utf-8'?>
+<materials>
+  <material id="7" name="LiCl_AnCl3" depletable="true" volume="1.0" temperature="923.15">
+    <density value="3.3176" units="g/cm3"/>
+    <nuclide name="Li6" ao="2.043461538461538"/>
+    <nuclide name="Li7" ao="24.879615384615384"/>
+    <nuclide name="Cl35" ao="3.076923076923077"/>
+    <nuclide name="Cl37" ao="58.46153846153846"/>
+    <nuclide name="Np237" ao="5.243776060433465"/>
+    <nuclide name="Am241" ao="5.243776060433465"/>
+    <nuclide name="Am243" ao="0.9184972765040882"/>
+    <nuclide name="Cm242" ao="3.615840302177883e-05"/>
+    <nuclide name="Cm244" ao="0.13141168169051082"/>
+    <nuclide name="Cm246" ao="0.0009643009969879622"/>
+  </material>
+</materials>
