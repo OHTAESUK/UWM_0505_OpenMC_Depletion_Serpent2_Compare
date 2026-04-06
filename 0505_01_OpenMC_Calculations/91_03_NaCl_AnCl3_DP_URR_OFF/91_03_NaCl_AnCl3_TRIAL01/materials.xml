@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='utf-8'?>
+<materials>
+  <material id="1" name="NaCl_AnCl3" depletable="true" volume="1.0" temperature="923.15">
+    <density value="3.3163" units="g/cm3"/>
+    <nuclide name="Na23" ao="25.18796992481203"/>
+    <nuclide name="Cl35" ao="0.6240601503759399"/>
+    <nuclide name="Cl37" ao="61.78195488721804"/>
+    <nuclide name="Np237" ao="5.638044937157785"/>
+    <nuclide name="Am241" ao="5.638044937157785"/>
+    <nuclide name="Am243" ao="0.9875572221058994"/>
+    <nuclide name="Cm242" ao="3.8877079940709563e-05"/>
+    <nuclide name="Cm244" ao="0.1412922592612259"/>
+    <nuclide name="Cm246" ao="0.0010368048313479596"/>
+  </material>
+</materials>
